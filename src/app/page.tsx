@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import logo from "@/app/images/logo.png";
-import { ListItems } from "./components";
+import { ListItems, PageNavigator } from "./components";
+import { DUMMY_ITEMS } from "./constants";
 
 export default function Home() {
   return (
@@ -208,16 +209,30 @@ export default function Home() {
       </div>
 
       <div className="p-4">
-        <Tabs defaultValue="terminal" className="w-[400px]">
+        <Tabs defaultValue="terminal" className="w-full">
           <TabsList>
             <TabsTrigger value="following">Following</TabsTrigger>
             <TabsTrigger value="terminal">Terminal</TabsTrigger>
           </TabsList>
           <TabsContent value="following">
-            <ListItems />
+            <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 text-gray-400 gap-4">
+              {DUMMY_ITEMS.map((item) => (
+                <ListItems key={item.slug} {...item} />
+              ))}
+            </div>
+            <div className="py-12">
+              <PageNavigator />
+            </div>
           </TabsContent>
           <TabsContent value="terminal">
-            <ListItems />
+            <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 text-gray-400 gap-4">
+              {DUMMY_ITEMS.map((item) => (
+                <ListItems key={item.slug} {...item} />
+              ))}
+            </div>
+            <div className="py-12">
+              <PageNavigator />
+            </div>
           </TabsContent>
         </Tabs>
       </div>
