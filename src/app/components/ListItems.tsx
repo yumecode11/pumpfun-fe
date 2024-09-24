@@ -1,3 +1,5 @@
+import type { FC } from "react";
+
 import Image from "next/image";
 import { PersonIcon } from "@radix-ui/react-icons";
 
@@ -13,7 +15,7 @@ type ListItemsProps = {
   text: string;
 };
 
-const ListItems = (props: ListItemsProps) => {
+const ListItems: FC<ListItemsProps> = (props) => {
   const {
     slug,
     imgUrl,
@@ -28,7 +30,7 @@ const ListItems = (props: ListItemsProps) => {
 
   return (
     <a href={`/${slug}`}>
-      <div className="max-h-[300px] overflow-hidden h-fit p-2 flex border hover:border-white gap-2 w-full border-transparent">
+      <div className="max-h-[300px] overflow-hidden h-fit p-2 flex border hover:border-primary gap-2 w-full border-transparent rounded-md">
         <div className="min-w-32 relative self-start">
           <Image
             alt={name}
@@ -36,7 +38,7 @@ const ListItems = (props: ListItemsProps) => {
             width="128"
             height="128"
             decoding="async"
-            className="mr-4 w-32 h-auto block"
+            className="mr-4 w-32 h-auto block rounded"
             src={imgUrl}
           />
         </div>
@@ -55,12 +57,12 @@ const ListItems = (props: ListItemsProps) => {
             </div>
             <span className="w-full md:w-auto">{created}</span>
           </div>
-          <div className="text-xs text-green-300 flex gap-1">
+          <div className="text-xs text-primary flex gap-1">
             {`market cap: ${marketCap}`}
           </div>
-          <p className="text-xs flex items-center gap-2">{`replies: ${replies}`}</p>
+          <p className="text-xs flex items-center gap-2 text-foreground">{`replies: ${replies}`}</p>
           <p
-            className="text-sm w-full"
+            className="text-sm w-full text-primary"
             style={{ overflowWrap: "break-word", wordBreak: "break-all" }}
           >
             <span className="font-bold">

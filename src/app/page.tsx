@@ -1,101 +1,20 @@
 import Image from "next/image";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import logo from "@/app/images/logo.png";
-import { ListItems, PageNavigator } from "./components";
-import { DUMMY_ITEMS } from "./constants";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import {
+  Filter,
+  Footer,
+  ListItems,
+  PageNavigator,
+  SearchToken,
+  TopNav,
+} from "./components";
+import { DEFAULT_TAB, DUMMY_ITEMS, TAB_ITEMS } from "./constants";
+import { PersonIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
   return (
     <main>
-      <nav className="flex flex-wrap justify-between w-full p-2 items-start h-fit">
-        <div className="flex gap-2 items-center">
-          <a href="/board">
-            <Image
-              alt="Pump"
-              loading="lazy"
-              width="25"
-              height="25"
-              decoding="async"
-              data-nimg="1"
-              className="mr-4"
-              style={{ color: "transparent" }}
-              src={logo}
-            />
-          </a>
-          <div className="grid h-fit">
-            <div className="flex gap-2">
-              <a
-                className="text-sm text-white hover:underline hover:font-bold"
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                [twitter]
-              </a>
-              <a
-                className="text-sm text-white hover:underline hover:font-bold"
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                [support]
-              </a>
-            </div>
-            <div className="flex gap-2">
-              <a
-                className="text-sm text-white hover:underline hover:font-bold"
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                [telegram]
-              </a>
-              <button
-                className="text-sm text-slate-50 hover:font-bold hover:bg-transparent hover:text-slate-50"
-                type="button"
-                aria-haspopup="dialog"
-                aria-expanded="false"
-                aria-controls="radix-:r0:"
-                data-state="closed"
-              >
-                [how it works]
-              </button>
-            </div>
-          </div>
-          <div className="hidden md:flex gap-2">
-            <div className="p-2 rounded flex items-center gap-1 text-sm bg-red-500">
-              <a href="#">
-                <span className="flex gap-1 items-center">
-                  <span
-                    className="px-1 rounded hover:underline flex gap-1"
-                    style={{ backgroundColor: "transparent" }}
-                  >
-                    LoremIpsum
-                  </span>
-                </span>
-              </a>
-              sold 1.0329 SOL of
-              <a className="hover:underline flex gap-2" href="#">
-                wisp
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="md:flex md:gap-2 grid gap-1">
-          <div className="grid justify-items-end">
-            <button
-              className="text-sm text-slate-50 hover:font-bold hover:bg-transparent hover:text-slate-50"
-              type="button"
-              aria-haspopup="dialog"
-              aria-expanded="false"
-              aria-controls="radix-:r3:"
-              data-state="closed"
-            >
-              [connect wallet]
-            </button>
-          </div>
-        </div>
-      </nav>
+      <TopNav />
 
       <div className="flex flex-col items-center w-full mt-4">
         <a
@@ -105,21 +24,14 @@ export default function Home() {
           [start a new coin]
         </a>
         <div className="text-white max-w-[800px] grid gap-2">
-          <Image
-            alt="lorem ipsum dolor"
-            loading="lazy"
-            width="166"
-            height="32"
-            decoding="async"
-            className="h-8 justify-self-center"
-            src="https://picsum.photos/166/32"
-            style={{ color: "transparent" }}
-          />
+          <p className="audiowide-regular text-4xl text-foreground text-center mt-8 mb-1">
+            Titan of the Top
+          </p>
           <a href="#">
-            <div className="p-2 flex border hover:border-white gap-2 w-full max-h-[300px] overflow-hidden border-transparent">
+            <div className="p-4 flex border hover:border-primary gap-2 w-full max-h-[300px] overflow-hidden border-transparent bg-foreground/10 rounded-md">
               <div className="min-w-20">
                 <Image
-                  alt="The Dog Father"
+                  alt="Lorem Ipsum Dolor Sit Amet"
                   loading="lazy"
                   width="200"
                   height="200"
@@ -130,20 +42,11 @@ export default function Home() {
                 />
               </div>
               <div className="gap-1 grid h-fit">
-                <div className="text-xs text-blue-200 flex items-center gap-2">
+                <div className="text-xs text-primary flex items-center gap-2">
                   <div>Created by</div>
                   <button type="button">
                     <span className="flex gap-1 items-center">
-                      <Image
-                        alt=""
-                        loading="lazy"
-                        width="16"
-                        height="16"
-                        decoding="async"
-                        className="w-4 h-4 rounded"
-                        src="https://picsum.photos/16/16"
-                        style={{ color: "transparent", display: "block" }}
-                      />
+                      <PersonIcon />
                       <span
                         className="px-1 rounded hover:underline flex gap-1"
                         style={{ backgroundColor: "transparent" }}
@@ -154,33 +57,8 @@ export default function Home() {
                   </button>
                   <span>4h ago</span>
                 </div>
-                <div className="text-xs text-green-300 flex gap-1">
+                <div className="text-xs text-primary flex gap-1">
                   market cap: 4.18K
-                  <div className="flex text-green-500">
-                    [badge:
-                    <div>
-                      <div>
-                        <div
-                          className="cursor-pointer hover:opacity-7"
-                          aria-haspopup="dialog"
-                          aria-expanded="false"
-                          aria-controls="radix-:r7a:"
-                          data-state="closed"
-                        >
-                          <Image
-                            alt="king of the hill badge"
-                            loading="lazy"
-                            width="18"
-                            height="18"
-                            decoding="async"
-                            src="https://picsum.photos/18/18"
-                            style={{ color: "transparent" }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    ]
-                  </div>
                 </div>
                 <p className="text-xs flex items-center gap-2">replies: 103</p>
                 <p className="text-sm w-full font-bold">
@@ -192,50 +70,28 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="grid px-2 sm:p-0 justify-center w-[95vw] my-12">
-        <div
-          className="grid gap-2 w-[90vw] max-w-[450px]"
-          style={{ gridTemplateColumns: "1fr auto" }}
-        >
-          <input
-            className="flex h-10 rounded-md text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300 p-2 border border-gray-300 w-full bg-green-300 text-black border-none focus:border-none active:border-none"
-            placeholder="search for token"
-            type="search"
-          />
-          <button className="bg-green-300 text-black p-2 rounded hover:bg-green-500">
-            search
-          </button>
-        </div>
-      </div>
+      <SearchToken />
 
       <div className="p-4">
-        <Tabs defaultValue="terminal" className="w-full">
-          <TabsList>
-            <TabsTrigger value="following">Following</TabsTrigger>
-            <TabsTrigger value="terminal">Terminal</TabsTrigger>
-          </TabsList>
-          <TabsContent value="following">
-            <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 text-gray-400 gap-4">
-              {DUMMY_ITEMS.map((item) => (
-                <ListItems key={item.slug} {...item} />
-              ))}
-            </div>
-            <div className="py-12">
-              <PageNavigator />
-            </div>
-          </TabsContent>
-          <TabsContent value="terminal">
-            <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 text-gray-400 gap-4">
-              {DUMMY_ITEMS.map((item) => (
-                <ListItems key={item.slug} {...item} />
-              ))}
-            </div>
-            <div className="py-12">
-              <PageNavigator />
-            </div>
-          </TabsContent>
+        <Tabs defaultValue={DEFAULT_TAB} className="w-full">
+          <Filter />
+
+          {TAB_ITEMS.map((tab) => (
+            <TabsContent key={tab.id} value={tab.id}>
+              <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 text-gray-400 gap-4">
+                {DUMMY_ITEMS.map((item) => (
+                  <ListItems key={item.slug} {...item} />
+                ))}
+              </div>
+              <div className="py-12">
+                <PageNavigator />
+              </div>
+            </TabsContent>
+          ))}
         </Tabs>
       </div>
+
+      <Footer />
     </main>
   );
 }

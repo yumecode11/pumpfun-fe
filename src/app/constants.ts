@@ -1,3 +1,14 @@
+export const TAB_ITEMS = [
+  {
+    id: "following",
+    title: "Following",
+  },
+  {
+    id: "terminal",
+    title: "Terminal",
+  },
+];
+export const DEFAULT_TAB = TAB_ITEMS[1].id;
 export const DUMMY_ITEMS = [
   {
     slug: "faposjflaksjdlf98932rjasjfkd1",
