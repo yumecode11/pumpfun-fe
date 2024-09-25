@@ -8,7 +8,7 @@ import { Wallet } from "lucide-react";
 
 const TopNav: FC = () => {
   return (
-    <nav className="flex flex-wrap justify-between w-full p-4 items-center h-fit">
+    <nav className="flex flex-wrap justify-between w-full p-2 sm:p-4 items-center h-fit">
       <div className="flex gap-2 items-center">
         <a href="#">
           <Image
@@ -40,7 +40,9 @@ const TopNav: FC = () => {
         </div>
       </div>
       <div className="md:flex md:gap-4 grid gap-1">
-        <Button variant="ghost">How it works</Button>
+        <Button className="hidden sm:flex" variant="ghost">
+          How it works
+        </Button>
         <Button>
           <Wallet className="w-4 h-4 mr-2" />
           Connect wallet

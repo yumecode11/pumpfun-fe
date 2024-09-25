@@ -15,7 +15,7 @@ import { TAB_ITEMS } from "../constants";
 
 const Filter: FC = () => {
   return (
-    <div className="flex border border-border p-2 gap-12 rounded-lg mb-8">
+    <div className="flex border border-border p-2 gap-2 sm:gap-12 rounded-lg mb-8">
       <TabsList>
         {TAB_ITEMS.map((tab) => (
           <TabsTrigger key={tab.id} value={tab.id}>
@@ -23,25 +23,27 @@ const Filter: FC = () => {
           </TabsTrigger>
         ))}
       </TabsList>
-      <div className="flex items-center space-x-2">
+      <div className="hidden sm:flex items-center space-x-2">
         <Switch id="animation" />
         <Label htmlFor="animation">Show Animation</Label>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="hidden sm:flex items-center space-x-2">
         <Switch id="wfsn" />
         <Label htmlFor="wfsn">Include nsfw</Label>
       </div>
 
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Sort By" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="featured">Featured</SelectItem>
-          <SelectItem value="bump-order">Bump order</SelectItem>
-          <SelectItem value="created-time">Created time</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="hidden sm:block">
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Sort By" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="featured">Featured</SelectItem>
+            <SelectItem value="bump-order">Bump order</SelectItem>
+            <SelectItem value="created-time">Created time</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   );
 };
