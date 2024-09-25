@@ -61,10 +61,7 @@ const ListItems: FC<ListItemsProps> = (props) => {
             {`market cap: ${marketCap}`}
           </div>
           <p className="text-xs flex items-center gap-2 text-foreground">{`replies: ${replies}`}</p>
-          <p
-            className="text-sm w-full text-primary"
-            style={{ overflowWrap: "break-word", wordBreak: "break-all" }}
-          >
+          <p className="text-sm w-full text-primary break-words">
             <span className="font-bold">
               {name} (ticker: {ticker}):{" "}
             </span>

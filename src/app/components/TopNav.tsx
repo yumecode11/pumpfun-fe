@@ -19,7 +19,6 @@ const TopNav: FC = () => {
             decoding="async"
             data-nimg="1"
             className="mr-4"
-            style={{ color: "transparent" }}
             src={logo}
           />
         </a>

@@ -10,7 +10,7 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
     <ThemeProvider
       attribute="class"
       defaultTheme="dark"
-      enableSystem
+      enableSystem={false}
       disableTransitionOnChange
       themes={["dark"]}
     >
