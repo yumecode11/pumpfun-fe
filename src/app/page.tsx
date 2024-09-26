@@ -15,7 +15,7 @@ import { PersonIcon } from "@radix-ui/react-icons";
 
 const Home: FC = () => {
   return (
-    <main>
+    <div>
       <TopNav />
 
       <div className="flex flex-col items-center w-full mt-4">
@@ -90,7 +90,7 @@ const Home: FC = () => {
       </div>
 
       <Footer />
-    </main>
+    </div>
   );
 };
 

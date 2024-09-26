@@ -16,7 +16,7 @@ const TradingViewChart: FC = () => {
       if ((window as any).TradingView) {
         new (window as any).TradingView.widget({
           symbol: "SOLUSDT",
-          interval: "H",
+          interval: "5",
           timezone: "Etc/UTC",
           theme: "dark",
           style: "1",
@@ -26,6 +26,7 @@ const TradingViewChart: FC = () => {
           allow_symbol_change: true,
           container_id: CONTAINER_ID,
           width: "100%",
+          height: "360px",
         });
       }
     };
@@ -33,7 +34,7 @@ const TradingViewChart: FC = () => {
 
   return (
     <div className="tradingview-widget-container">
-      <div id={CONTAINER_ID} className="w-full h-[500px]" />
+      <div id={CONTAINER_ID} />
     </div>
   );
 };
