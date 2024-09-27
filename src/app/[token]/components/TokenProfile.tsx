@@ -24,7 +24,7 @@ const TokenProfile: FC = () => {
 
       <div className="mt-4">
         <p className="text-sm mb-1">Bonding curve: 88%</p>
-        <Progress value={88} />
+        <Progress value={88} className="[&>*]:bg-chart-1" />
         <p className="text-xs mt-4 text-foreground/80">
           when the market cap reaches $65,522 all the liquidity from the bonding
           curve will be deposited into Raydium and burned. progression increases
@@ -39,7 +39,7 @@ const TokenProfile: FC = () => {
 
       <div className="mt-4">
         <p className="text-sm mb-1">Titan of the top progress: 55%</p>
-        <Progress value={55} />
+        <Progress value={55} className="[&>*]:bg-chart-2" />
         <p className="text-xs mt-4 text-foreground/80">
           Dethrone the current titan at a $31,608 mcap
         </p>

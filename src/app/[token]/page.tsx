@@ -4,7 +4,7 @@ import { FC } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { TopNav } from "@/app/components";
+import { Footer, TopNav } from "@/app/components";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -24,14 +24,14 @@ const TokenDetail: FC = () => {
     <div>
       <TopNav />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 mb-12">
         <Button variant="outline" className="my-4" onClick={back}>
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
 
-        <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="order-last md:order-none lg:col-span-2">
             <TradingViewChart />
 
             <TradeThread />
@@ -40,7 +40,7 @@ const TokenDetail: FC = () => {
           <div className="col-span-1">
             <TransactionForm />
 
-            <div className="mt-12 flex flex-col gap-4">
+            <div className="hidden md:flex mt-12 flex-col gap-4">
               <SocialMedia />
 
               <TokenProfile />
@@ -50,6 +50,8 @@ const TokenDetail: FC = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
