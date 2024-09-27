@@ -121,7 +121,7 @@ export const DUMMY_ITEMS = [
     text: "Lorem ipsum dolor lalala sit amet noto",
   },
   {
-    slug: "faposjflaksjdlf98932rjasjfkd10",
+    slug: "faposjflaksjdlf98932rjasjfkd11",
     imgUrl: "https://picsum.photos/128/128",
     name: "Lorem Ipsum Dolor Sit Amet",
     ticker: "LisDia",
@@ -132,7 +132,7 @@ export const DUMMY_ITEMS = [
     text: "Lorem ipsum dolor lalala sit amet noto",
   },
   {
-    slug: "faposjflaksjdlf98932rjasjfkd10",
+    slug: "faposjflaksjdlf98932rjasjfkd12",
     imgUrl: "https://picsum.photos/128/128",
     name: "Lorem Ipsum Dolor Sit Amet",
     ticker: "LisDia",

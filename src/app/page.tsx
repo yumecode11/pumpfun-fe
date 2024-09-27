@@ -1,3 +1,5 @@
+import { FC, Suspense } from "react";
+
 import Image from "next/image";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import {
@@ -11,9 +13,9 @@ import {
 import { DEFAULT_TAB, DUMMY_ITEMS, TAB_ITEMS } from "./constants";
 import { PersonIcon } from "@radix-ui/react-icons";
 
-export default function Home() {
+const Home: FC = () => {
   return (
-    <main>
+    <div>
       <TopNav />
 
       <div className="flex flex-col items-center w-full mt-4">
@@ -36,9 +38,8 @@ export default function Home() {
                   width="200"
                   height="200"
                   decoding="async"
-                  className="mr-4 w-20 h-auto"
+                  className="mr-4 w-20 h-auto block"
                   src="https://picsum.photos/80/80"
-                  style={{ color: "transparent", display: "block" }}
                 />
               </div>
               <div className="gap-1 grid h-fit">
@@ -47,10 +48,7 @@ export default function Home() {
                   <button type="button">
                     <span className="flex gap-1 items-center">
                       <PersonIcon />
-                      <span
-                        className="px-1 rounded hover:underline flex gap-1"
-                        style={{ backgroundColor: "transparent" }}
-                      >
+                      <span className="px-1 rounded hover:underline flex gap-1 bg-transparent">
                         LOREM
                       </span>
                     </span>
@@ -92,6 +90,16 @@ export default function Home() {
       </div>
 
       <Footer />
-    </main>
+    </div>
   );
-}
+};
+
+const HomePage: FC = () => {
+  return (
+    <Suspense>
+      <Home />
+    </Suspense>
+  );
+};
+
+export default HomePage;
