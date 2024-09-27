@@ -1,17 +1,31 @@
+"use client";
+
 import { FC } from "react";
+
+import { useRouter } from "next/navigation";
+
 import { TopNav } from "@/app/components";
 import { Button } from "@/components/ui/button";
 
-import { TradeThread, TradingViewChart, TransactionForm } from "./components";
+import {
+  HolderDistribution,
+  SocialMedia,
+  TokenProfile,
+  TradeThread,
+  TradingViewChart,
+  TransactionForm,
+} from "./components";
 import { ArrowLeft } from "lucide-react";
 
 const TokenDetail: FC = () => {
+  const { back } = useRouter();
+
   return (
     <div>
       <TopNav />
 
       <div className="container mx-auto px-4">
-        <Button variant="outline" className="my-4">
+        <Button variant="outline" className="my-4" onClick={back}>
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
@@ -25,6 +39,14 @@ const TokenDetail: FC = () => {
 
           <div className="col-span-1">
             <TransactionForm />
+
+            <div className="mt-12 flex flex-col gap-4">
+              <SocialMedia />
+
+              <TokenProfile />
+
+              <HolderDistribution />
+            </div>
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ const TradingViewChart: FC = () => {
           allow_symbol_change: true,
           container_id: CONTAINER_ID,
           width: "100%",
-          height: "360px",
+          height: "355px",
         });
       }
     };
