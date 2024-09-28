@@ -11,7 +11,7 @@ import {
 import { Switch } from "@/components/primitives/Switch";
 import { TabsList, TabsTrigger } from "@/components/primitives/Tabs";
 
-import { TAB_ITEMS } from "../../app/constants";
+import { TAB_ITEMS } from "../constants";
 
 const Filter: FC = () => {
   return (

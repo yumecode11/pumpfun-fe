@@ -2,7 +2,6 @@ import type { FC } from "react";
 
 import Image from "next/image";
 
-import logo from "@/app/images/logo.png";
 import { Button } from "@/components/primitives/Button";
 import { Wallet } from "lucide-react";
 
@@ -10,7 +9,7 @@ const TopNav: FC = () => {
   return (
     <nav className="flex flex-wrap justify-between w-full p-2 sm:p-4 items-center h-fit">
       <div className="flex gap-2 items-center">
-        <a href="#">
+        <a href="/">
           <Image
             alt="Pump"
             loading="lazy"
@@ -19,8 +18,7 @@ const TopNav: FC = () => {
             decoding="async"
             data-nimg="1"
             className="mr-4"
-            style={{ color: "transparent" }}
-            src={logo}
+            src="/images/logo.png"
           />
         </a>
         <div className="hidden md:flex gap-2">
