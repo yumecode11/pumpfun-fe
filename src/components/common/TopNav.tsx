@@ -3,7 +3,7 @@ import type { FC } from "react";
 import Image from "next/image";
 
 import logo from "@/app/images/logo.png";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/primitives/Button";
 import { Wallet } from "lucide-react";
 
 const TopNav: FC = () => {

@@ -1,17 +1,17 @@
 import type { FC } from "react";
 
-import { Label } from "@/components/ui/label";
+import { Label } from "@/components/primitives/Label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { TabsList, TabsTrigger } from "@/components/ui/tabs";
+} from "@/components/primitives/Select";
+import { Switch } from "@/components/primitives/Switch";
+import { TabsList, TabsTrigger } from "@/components/primitives/Tabs";
 
-import { TAB_ITEMS } from "../constants";
+import { TAB_ITEMS } from "../../app/constants";
 
 const Filter: FC = () => {
   return (
