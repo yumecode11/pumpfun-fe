@@ -1,20 +1,49 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowDown, ArrowLeft, ArrowUp } from "lucide-react";
 
 import TopNav from "@/components/common/TopNav";
-import {Button} from "@/components/primitives/Button";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/primitives/Card";
-import {Input} from "@/components/primitives/Input";
-import {Label} from "@/components/primitives/Label";
-import {Textarea} from "@/components/primitives/Textarea";
+import { Button } from "@/components/primitives/Button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/primitives/Card";
+import { Input } from "@/components/primitives/Input";
+import { Label } from "@/components/primitives/Label";
+import { Textarea } from "@/components/primitives/Textarea";
 import Footer from "@/components/common/Footer";
 
 const CreateToken: FC = () => {
   const { back } = useRouter();
   const [showOthers, setShowOthers] = useState(false);
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const name = formData.get("name");
+    const ticker = formData.get("ticker");
+    const description = formData.get("description");
+    const image = formData.get("image");
+    const twitter = formData.get("twitter");
+    const telegram = formData.get("telegram");
+    const website = formData.get("website");
+
+    console.log({
+      name,
+      ticker,
+      description,
+      image,
+      twitter,
+      telegram,
+      website,
+    });
+
+    // TODO: post to API
+  };
 
   return (
     <div>
@@ -30,7 +59,11 @@ const CreateToken: FC = () => {
             <CardTitle>Create New Token</CardTitle>
           </CardHeader>
           <CardContent>
-            <form className="flex flex-col gap-4">
+            <form
+              className="flex flex-col gap-4"
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
               <div className="grid w-full gap-2">
                 <Label htmlFor="name">Name</Label>
                 <Input type="text" id="name" name="name" required />
@@ -61,24 +94,28 @@ const CreateToken: FC = () => {
                 )}
               </Button>
 
-              <div className="grid w-full gap-2">
-                <Label htmlFor="twitter">Twitter link</Label>
-                <Input type="text" id="twitter" name="twitter" />
-              </div>
+              {showOthers && (
+                <>
+                  <div className="grid w-full gap-2">
+                    <Label htmlFor="twitter">Twitter link</Label>
+                    <Input type="text" id="twitter" name="twitter" />
+                  </div>
 
-              <div className="grid w-full gap-2">
-                <Label htmlFor="telegram">Telegram link</Label>
-                <Input type="text" id="telegram" name="telegram" />
-              </div>
+                  <div className="grid w-full gap-2">
+                    <Label htmlFor="telegram">Telegram link</Label>
+                    <Input type="text" id="telegram" name="telegram" />
+                  </div>
 
-              <div className="grid w-full gap-2">
-                <Label htmlFor="website">Website link</Label>
-                <Input type="text" id="website" name="website" />
-              </div>
+                  <div className="grid w-full gap-2">
+                    <Label htmlFor="website">Website link</Label>
+                    <Input type="text" id="website" name="website" />
+                  </div>
 
-              <p className="text-foreground text-xs">
-                Note: Coin data cannot be changed after creation
-              </p>
+                  <p className="text-foreground text-xs">
+                    Note: Coin data cannot be changed after creation
+                  </p>
+                </>
+              )}
 
               <Button type="submit" className="w-full">
                 Create Coin
