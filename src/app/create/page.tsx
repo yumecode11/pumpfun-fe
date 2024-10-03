@@ -20,29 +20,26 @@ import Footer from "@/components/common/Footer";
 const CreateToken: FC = () => {
   const { back } = useRouter();
   const [showOthers, setShowOthers] = useState(false);
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const name = formData.get("name");
-    const ticker = formData.get("ticker");
-    const description = formData.get("description");
-    const image = formData.get("image");
-    const twitter = formData.get("twitter");
-    const telegram = formData.get("telegram");
-    const website = formData.get("website");
 
-    console.log({
-      name,
-      ticker,
-      description,
-      image,
-      twitter,
-      telegram,
-      website,
-    });
-
-    // TODO: post to API
+    try {
+      const response = await fetch("http://localhost:4000/create-coin", {
+        method: "POST",
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to create coin");
+      }
+  
+      const result = await response.json();
+      console.log("Coin created successfully", result);
+    } catch (error) {
+      console.error("Error submitting form", error);
+    }
   };
 
   return (
