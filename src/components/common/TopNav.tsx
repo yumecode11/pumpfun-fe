@@ -1,11 +1,19 @@
-import type { FC } from "react";
+'use client';
 
+import type { FC } from "react";
 import Image from "next/image";
+import {LogOut, Wallet} from "lucide-react";
+import {useWalletModal} from "@solana/wallet-adapter-react-ui";
 
 import { Button } from "@/components/primitives/Button";
-import { Wallet } from "lucide-react";
+import useSession from "@/hooks/useSession";
+import {useWallet} from "@solana/wallet-adapter-react";
 
 const TopNav: FC = () => {
+  const { data: session } = useSession();
+  const { setVisible } = useWalletModal();
+  const { connected, connecting, publicKey, signMessage, disconnect } = useWallet();
+
   return (
     <nav className="flex flex-wrap justify-between w-full p-2 sm:p-4 items-center h-fit">
       <div className="flex gap-2 items-center">
@@ -41,10 +49,17 @@ const TopNav: FC = () => {
         <Button className="hidden sm:flex" variant="ghost">
           How it works
         </Button>
-        <Button>
-          <Wallet className="w-4 h-4 mr-2" />
-          Connect wallet
-        </Button>
+        {connected ? (
+          <Button onClick={() => disconnect()}>
+            <LogOut className="w-4 h-4 mr-2" />
+            Disconnect
+          </Button>
+        ) : (
+          <Button onClick={() => setVisible(true)}>
+            <Wallet className="w-4 h-4 mr-2" />
+            Connect wallet
+          </Button>
+        )}
       </div>
     </nav>
   );
