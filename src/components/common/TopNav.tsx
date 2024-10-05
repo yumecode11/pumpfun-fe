@@ -30,7 +30,7 @@ const TopNav: FC = () => {
           />
         </a>
         <div className="hidden md:flex gap-2">
-          <div className="p-2 rounded flex items-center gap-1 text-sm bg-destructive">
+          <div className="p-2 rounded flex items-center gap-1 text-sm bg-amber-600">
             <a href="#">
               <span className="flex gap-1 items-center">
                 <span className="px-1 rounded hover:underline flex gap-1 bg-transparent text-destructive-foreground">
@@ -44,11 +44,24 @@ const TopNav: FC = () => {
             </a>
           </div>
         </div>
+        <div className="hidden md:flex gap-2">
+          <div className="p-2 rounded flex items-center gap-1 text-sm bg-sky-600">
+            <a href="#">
+              <span className="flex gap-1 items-center">
+                <span className="px-1 rounded hover:underline flex gap-1 bg-transparent text-destructive-foreground">
+                  L0r3m
+                </span>
+              </span>
+            </a>
+            created
+            <a className="hover:underline flex gap-2" href="#">
+              IPSUM
+            </a>
+            on 10/05/24
+          </div>
+        </div>
       </div>
       <div className="md:flex md:gap-4 grid gap-1">
-        <Button className="hidden sm:flex" variant="ghost">
-          How it works
-        </Button>
         {connected ? (
           <Button onClick={() => disconnect()}>
             <LogOut className="w-4 h-4 mr-2" />
