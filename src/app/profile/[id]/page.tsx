@@ -13,7 +13,7 @@ const Profile: FC<ProfileProps> = (props) => {
   const { id } = params;
 
   return (
-    <main className="container mx-auto px-4 py-12 lg:min-h-[calc(100vh-220px)]">
+    <main className="container mx-auto px-4 py-4 sm:py-12 lg:min-h-[calc(100vh-220px)]">
       <UserProfile />
 
       <ActivityTabs />
