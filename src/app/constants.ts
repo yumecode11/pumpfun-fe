@@ -30,7 +30,7 @@ export const DUMMY_ITEMS = [
     created: "2h ago",
     marketCap: 10000,
     replies: 77,
-    text: "Lorem ipsum dolor lalala sit amet noto",
+    text: "",
   },
   {
     slug: "faposjflaksjdlf98932rjasjfkd3",
@@ -41,7 +41,7 @@ export const DUMMY_ITEMS = [
     created: "2h ago",
     marketCap: 10000,
     replies: 77,
-    text: "Lorem ipsum dolor lalala sit amet noto",
+    text: "Fusce ac dignissim erat. Morbi tristique dolor nec rhoncus dignissim. Vestibulum consectetur placerat quam ac laoreet. Fusce dictum ut massa vel molestie. Curabitur ac mauris sed augue molestie dapibus in in nisl.",
   },
   {
     slug: "faposjflaksjdlf98932rjasjfkd4",
@@ -85,7 +85,7 @@ export const DUMMY_ITEMS = [
     created: "2h ago",
     marketCap: 10000,
     replies: 77,
-    text: "Lorem ipsum dolor lalala sit amet noto",
+    text: "Maecenas mollis ac turpis et finibus. Nunc et magna egestas nisl imperdiet porttitor eu eu mauris. Vivamus sit amet dui at felis egestas accumsan nec sed nisi. Aenean non convallis ex. Etiam in massa at sapien scelerisque consequat. Cras finibus, ante id lobortis finibus, leo odio gravida metus, sed faucibus lacus nisi non nunc. Curabitur ligula leo, consectetur sit amet facilisis id, maximus ut eros. Morbi lobortis, mi feugiat dapibus aliquet, nunc enim mattis erat, eget ultricies leo ligula rhoncus metus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
   },
   {
     slug: "faposjflaksjdlf98932rjasjfkd8",

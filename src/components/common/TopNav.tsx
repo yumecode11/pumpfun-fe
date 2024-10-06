@@ -2,17 +2,24 @@
 
 import type { FC } from "react";
 import Image from "next/image";
-import {LogOut, Wallet} from "lucide-react";
+import {LogOut, Wallet, User} from "lucide-react";
 import {useWalletModal} from "@solana/wallet-adapter-react-ui";
 
 import { Button } from "@/components/primitives/Button";
 import useSession from "@/hooks/useSession";
 import {useWallet} from "@solana/wallet-adapter-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./DropdownMenu";
+import { useRouter } from "next/navigation";
 
 const TopNav: FC = () => {
+  const { push, replace } = useRouter();
   const { data: session } = useSession();
   const { setVisible } = useWalletModal();
   const { connected, connecting, publicKey, signMessage, disconnect } = useWallet();
+  const handleDisconnect = async() => {
+    await disconnect();
+    replace('/');
+  }
 
   return (
     <nav className="flex flex-wrap justify-between w-full p-2 sm:p-4 items-center h-fit">
@@ -63,10 +70,28 @@ const TopNav: FC = () => {
       </div>
       <div className="md:flex md:gap-4 grid gap-1">
         {connected ? (
-          <Button onClick={() => disconnect()}>
-            <LogOut className="w-4 h-4 mr-2" />
-            Disconnect
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button>
+                <User className="mr-2 h-4 w-4" />
+                @L0r3m
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem onClick={() => push(`/profile/${123}`)}>
+                  <User className="mr-2 h-4 w-4" />
+                  <span>View Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDisconnect}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Disconnect</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ) : (
           <Button onClick={() => setVisible(true)}>
             <Wallet className="w-4 h-4 mr-2" />
