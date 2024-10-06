@@ -3,7 +3,7 @@ import { FC, Suspense } from "react";
 import { DEFAULT_TAB, DUMMY_ITEMS, TAB_ITEMS } from "./constants";
 import SearchToken from "@/app/components/SearchToken";
 import {Tabs, TabsContent} from "@/components/primitives/Tabs";
-import ListItems from "@/app/components/ListItems";
+import Coin from "@/app/components/Coin";
 import PageNavigator from "@/components/common/PageNavigator";
 import Filter from "@/app/components/Filter";
 import Link from "next/link";
@@ -31,9 +31,9 @@ const Home: FC = () => {
 
           {TAB_ITEMS.map((tab) => (
             <TabsContent key={tab.id} value={tab.id}>
-              <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 text-gray-400 gap-4">
+              <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {DUMMY_ITEMS.map((item) => (
-                  <ListItems key={item.slug} {...item} />
+                  <Coin key={item.slug} {...item} />
                 ))}
               </div>
               <div className="py-12">
