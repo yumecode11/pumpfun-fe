@@ -55,9 +55,35 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+			keyframes: {
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '25%': { transform: 'translateX(-0.5rem)' },
+          '75%': { transform: 'translateX(0.5rem)' },
+        },
+      },
+      animation: {
+        shake: 'shake 0.15s ease 3',
+      },
+			scrollbarWidth: {
+        'none': 'none',
+      }
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+		require("tailwindcss-animate"),
+		function ({ addUtilities }: { addUtilities: any }) {
+      addUtilities({
+        '.scrollbar-none': {
+          'scrollbar-width': 'none',
+          '-ms-overflow-style': 'none',
+        },
+        '.scrollbar-none::-webkit-scrollbar': {
+          display: 'none',
+        },
+      })
+    }
+	],
 };
 export default config;

@@ -36,7 +36,7 @@ const TopNav: FC = () => {
             src="/images/logo.png"
           />
         </a>
-        <div className="hidden md:flex gap-2">
+        <div className="hidden md:flex gap-2 animate-shake">
           <div className="p-2 rounded flex items-center gap-1 text-sm bg-amber-600">
             <a href="#">
               <span className="flex gap-1 items-center">
@@ -51,7 +51,7 @@ const TopNav: FC = () => {
             </a>
           </div>
         </div>
-        <div className="hidden lg:flex gap-2">
+        <div className="hidden lg:flex gap-2 animate-shake">
           <div className="p-2 rounded flex items-center gap-1 text-sm bg-sky-600">
             <a href="#">
               <span className="flex gap-1 items-center">

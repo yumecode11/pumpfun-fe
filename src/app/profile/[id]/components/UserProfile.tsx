@@ -5,11 +5,13 @@ import { Copy, Edit } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/common/Avatar";
 import { Button } from "@/components/primitives/Button";
+import EditProfile from "./EditProfile";
 
 const DUMMY_ADDRESS = 'FZLsqDUAVj8GEZp88888888XvDfEMZBwVVmXQr5aKrhikasdKIo02Kl5758';
 
 const UserProfile: FC = () => {
-  const [copiedText, setCopiedText] = useState(false)
+  const [copiedText, setCopiedText] = useState(false);
+  const [openEditProfile, setOpenEditProfile] = useState(false);
 
   const copyAddress = () => {
     navigator.clipboard.writeText(DUMMY_ADDRESS)
@@ -32,7 +34,7 @@ const UserProfile: FC = () => {
           </div>
 
           <div className="grow flex self-start justify-end">
-            <Button variant="outline">
+            <Button variant="outline" onClick={() => setOpenEditProfile(true)}>
               <Edit className="h-4 w-4" />
               <span className="hidden sm:inline ml-2">Edit Profile</span>
             </Button>
@@ -70,6 +72,8 @@ const UserProfile: FC = () => {
           </div>
         </div>
       </div>
+
+      <EditProfile isOpen={openEditProfile} onOpenChange={setOpenEditProfile} />
     </div>
   )
 }
