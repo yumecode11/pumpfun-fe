@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 
 import { ExternalLink, Plus, RefreshCw } from 'lucide-react';
 
@@ -9,14 +9,24 @@ import { Switch } from '@/components/primitives/Switch';
 import { Label } from '@/components/primitives/Label';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/common/Avatar";
 import PagesNavigator from '@/components/common/PageNavigator';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/common/Dialog';
+import { Input } from '@/components/primitives/Input';
 
 const CoinsHeld: FC = () => {
   const [showDustCoins, setShowDustCoins] = useState(true);
+  const [showAddContractAddress, setAddContractAddress] = useState(false);
+  const handleSubmitContractAddress = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const contractAddress = e.currentTarget.contractAddress.value;
+    console.log(`add contract address ${contractAddress}`);
+
+    setAddContractAddress(false);
+  }
 
   return (
     <div className='pt-2'>
       <div className="flex flex-row justify-between pb-4 border-b border-border mb-4">
-        <Button>
+        <Button onClick={() => setAddContractAddress(true)}>
           <Plus className="mr-2 h-4 w-4" />
           Add Coin
         </Button>
@@ -58,6 +68,22 @@ const CoinsHeld: FC = () => {
       <div className='mt-8'>
         <PagesNavigator />
       </div>
+
+      <Dialog open={showAddContractAddress} onOpenChange={setAddContractAddress}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add a coin to your portfolio</DialogTitle>
+          </DialogHeader>
+          <form autoComplete="off" className="flex flex-col gap-4" onSubmit={handleSubmitContractAddress}>
+            <div className="grid w-full gap-2">
+              <Label htmlFor="contract-address">Contract Address</Label>
+              <Input type="text" id="contract-address" name="contractAddress" required />
+            </div>
+            <Button type="submit" className='w-full'>Submit</Button>
+            <p className='text-foreground/80 text-xs text-center'>if your coin is not listed, you can add it by providing the contract address address. only coins launched on pump are supported.</p>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 };
