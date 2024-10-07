@@ -39,25 +39,27 @@ const UsersToFollow: FC = () => {
       </div>
       <p className="text-foreground/80 text-xs">Follow some of users to start curating your feed</p>
 
-      <ul className='flex flex-row flex-wrap gap-4 mt-4'>
-        {DUMMY_USERS.map(user => (
-          <li key={user.name} className="bg-card rounded-lg p-4 text-center w-32">
-            <Avatar className="w-10 h-10 mx-auto">
-              <AvatarImage src="https://picsum.photos/40/40" alt="" />
-              <AvatarFallback>
-                <User />
-              </AvatarFallback>
-            </Avatar>
+      <div className="flex mt-4 w-full overflow-y-hidden scrollbar-none">
+        <ul className='flex flex-row md:flex-wrap gap-4'>
+          {DUMMY_USERS.map(user => (
+            <li key={user.name} className="bg-card rounded-lg p-4 text-center w-32">
+              <Avatar className="w-10 h-10 mx-auto">
+                <AvatarImage src="https://picsum.photos/40/40" alt="" />
+                <AvatarFallback>
+                  <User />
+                </AvatarFallback>
+              </Avatar>
 
-            <p className="text-foreground text-sm text-center mt-4 truncate">{user.name}</p>
-            <p className="text-foreground/50 text-xs text-center">{user.followers} followers</p>
+              <p className="text-foreground text-sm text-center mt-4 truncate">{user.name}</p>
+              <p className="text-foreground/50 text-xs text-center">{user.followers} followers</p>
 
-            <Button className='mt-4'>
-              Follow
-            </Button>
-          </li>
-        ))}
-      </ul>
+              <Button className='mt-4'>
+                Follow
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

@@ -1,11 +1,9 @@
 import { FC } from 'react';
 
-import { Reply } from 'lucide-react';
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/common/Avatar";
-import { Button } from '@/components/primitives/Button';
 import PagesNavigator from '@/components/common/PageNavigator';
 import clsx from 'clsx';
+import PostReply from '@/app/[token]/components/PostReply';
 
 const Replies: FC = () => {
   return (
@@ -24,10 +22,7 @@ const Replies: FC = () => {
               <span className="text-foreground/50 text-xs mt-1 block">10/6/2024 10:10:10 AM</span>
             </p>
 
-            <Button variant="outline">
-              <Reply className="mr-2 h-4 w-4" />
-              Reply
-            </Button>
+            <PostReply btnLabel="Reply" />
           </li>
         ))}
       </ul>
