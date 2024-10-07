@@ -30,27 +30,22 @@ const ListItems: FC<ListItemsProps> = (props) => {
 
   return (
     <a href={`/${slug}`}>
-      <div className="min-h-[146px] overflow-hidden pl-[144px] p-2 relative border hover:border-primary hover:bg-primary/10 gap-2 w-full border-transparent rounded-md">
+      <div className="min-h-[146px] overflow-hidden pl-28 sm:pl-36 p-2 relative border hover:border-primary hover:bg-primary/10 gap-2 w-full border-transparent rounded-md">
         <Image
           alt={name}
           loading="lazy"
           width="128"
           height="128"
           decoding="async"
-          className="w-32 h-auto block rounded absolute left-2 top-2"
+          className="w-24 sm:w-32 h-auto block rounded absolute left-2 top-2"
           src={imgUrl}
         />
         <div className="gap-1 grid h-fit">
           <div className="text-xs text-foreground flex flex-wrap items-center gap-1">
             <div className="flex items-center gap-1">
               <div>Created by</div>
-              <button type="button">
-                <span className="flex gap-1 items-center">
-                  <PersonIcon />
-                  <span className="px-1 rounded hover:underline flex gap-1 bg-transparent">
-                    {userName}
-                  </span>
-                </span>
+              <button type="button" className="hover:underline text-chart-3">
+                {userName}
               </button>
             </div>
             <span className="w-full md:w-auto">{created}</span>

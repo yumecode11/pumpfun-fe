@@ -18,7 +18,7 @@ const Footer: FC = () => {
       <p className="w-full text-sm text-center">
         &copy; loremipsum {new Date().getFullYear()}
       </p>
-      <div className="flex gap-8 items-center justify-around w-full">
+      <div className="flex items-center justify-around w-full">
         <div>
           <button type="button" className="text-sm text-white hover:underline" onClick={() => setOpen(true)}>[how it works]</button>
           <Dialog open={open} onOpenChange={setOpen}>
