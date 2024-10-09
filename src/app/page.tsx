@@ -1,6 +1,6 @@
 import { FC, Suspense } from "react";
 
-import SearchToken from "@/app/components/SearchToken";
+import SearchCoin from "@/app/components/SearchCoin";
 import Link from "next/link";
 import TopCoin from "./components/TopCoin";
 import CoinList from "./components/CoinList";
@@ -19,7 +19,7 @@ const Home: FC = () => {
         <TopCoin />
       </div>
 
-      <SearchToken />
+      <SearchCoin />
 
       <CoinList />
     </main>
