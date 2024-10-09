@@ -1,21 +1,19 @@
 'use client';
 
-import { FC, FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
-import { ArrowDown, ArrowLeft, ArrowUp } from "lucide-react";
+import { FC, FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ArrowDown, ArrowLeft, ArrowUp } from 'lucide-react';
 
-import TopNav from "@/components/common/TopNav";
-import { Button } from "@/components/primitives/Button";
+import { Button } from '@/components/primitives/Button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/primitives/Card";
-import { Input } from "@/components/primitives/Input";
-import { Label } from "@/components/primitives/Label";
-import { Textarea } from "@/components/primitives/Textarea";
-import Footer from "@/components/common/Footer";
+} from '@/components/primitives/Card';
+import { Input } from '@/components/primitives/Input';
+import { Label } from '@/components/primitives/Label';
+import { Textarea } from '@/components/primitives/Textarea';
 
 const CreateToken: FC = () => {
   const { back } = useRouter();
@@ -26,19 +24,19 @@ const CreateToken: FC = () => {
     const formData = new FormData(e.target as HTMLFormElement);
 
     try {
-      const response = await fetch("http://localhost:4000/create-coin", {
-        method: "POST",
+      const response = await fetch('http://localhost:4000/create-coin', {
+        method: 'POST',
         body: formData,
       });
   
       if (!response.ok) {
-        throw new Error("Failed to create coin");
+        throw new Error('Failed to create coin');
       }
   
       const result = await response.json();
-      console.log("Coin created successfully", result);
+      console.log('Coin created successfully', result);
     } catch (error) {
-      console.error("Error submitting form", error);
+      console.error('Error submitting form', error);
     }
   };
 
