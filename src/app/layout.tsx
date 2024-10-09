@@ -1,19 +1,29 @@
-import { Inter } from "next/font/google";
+import { ReactNode } from 'react';
+import { Inter } from 'next/font/google';
 
-import "./globals.css";
-import Providers from "./providers";
+import Providers from './providers';
+import TopNav from '@/components/common/TopNav';
+import Footer from '@/components/common/Footer';
 
-const inter = Inter({ subsets: ["latin"] });
+import '@solana/wallet-adapter-react-ui/styles.css';
+import 'nprogress/nprogress.css'
+import './globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <TopNav />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

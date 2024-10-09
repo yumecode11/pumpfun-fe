@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { FC, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -43,53 +43,50 @@ const CreateToken: FC = () => {
   };
 
   return (
-    <div>
-      <TopNav />
+    <main className="max-w-xl mx-auto px-4 mb-12">
+      <Button variant="outline" className="my-4" onClick={back}>
+        <ArrowLeft className="h-4 w-4 mr-2" />
+        Back
+      </Button>
+      <Card>
+        <CardHeader>
+          <CardTitle>Create New Token</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form
+            className="flex flex-col gap-4"
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <div className="grid w-full gap-2">
+              <Label htmlFor="name">Name</Label>
+              <Input type="text" id="name" name="name" required />
+            </div>
+            <div className="grid w-full gap-2">
+              <Label htmlFor="ticker">Ticker</Label>
+              <Input type="text" id="ticker" name="ticker" required />
+            </div>
+            <div className="grid w-full gap-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea id="description" name="description" required />
+            </div>
+            <div className="grid w-full gap-2">
+              <Label htmlFor="image">Image</Label>
+              <Input type="file" id="image" name="image" required />
+            </div>
 
-      <div className="max-w-xl mx-auto px-4 mb-12">
-        <Button variant="outline" className="my-4" onClick={back}>
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back
-        </Button>
-        <Card>
-          <CardHeader>
-            <CardTitle>Create New Token</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form
-              className="flex flex-col gap-4"
-              autoComplete="off"
-              onSubmit={handleSubmit}
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => setShowOthers(!showOthers)}
             >
-              <div className="grid w-full gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" name="name" required />
-              </div>
-              <div className="grid w-full gap-2">
-                <Label htmlFor="ticker">Ticker</Label>
-                <Input type="text" id="ticker" name="ticker" required />
-              </div>
-              <div className="grid w-full gap-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea id="description" name="description" required />
-              </div>
-              <div className="grid w-full gap-2">
-                <Label htmlFor="image">Image</Label>
-                <Input type="file" id="image" name="image" required />
-              </div>
-
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => setShowOthers(!showOthers)}
-              >
-                {showOthers ? "Hide more options" : "Show more options"}
-                {showOthers ? (
-                  <ArrowUp className="ml-2 h-4 w-4" />
-                ) : (
-                  <ArrowDown className="ml-2 h-4 w-4" />
-                )}
-              </Button>
+              {showOthers ? "Hide more options" : "Show more options"}
+              {showOthers ? (
+                <ArrowUp className="ml-2 h-4 w-4" />
+              ) : (
+                <ArrowDown className="ml-2 h-4 w-4" />
+              )}
+            </Button>
 
               {showOthers && (
                 <>
@@ -114,20 +111,17 @@ const CreateToken: FC = () => {
                 </>
               )}
 
-              <Button type="submit" className="w-full">
-                Create Coin
-              </Button>
+            <Button type="submit" className="w-full">
+              Create Coin
+            </Button>
 
-              <p className="text-foreground text-xs">
-                When your coin completes its bonding curve you receive 0.5 SOL
-              </p>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Footer />
-    </div>
+            <p className="text-foreground text-xs">
+              When your coin completes its bonding curve you receive 0.5 SOL
+            </p>
+          </form>
+        </CardContent>
+      </Card>
+    </main>
   );
 };
 
