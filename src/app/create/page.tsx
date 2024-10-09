@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, FormEvent, useState } from 'react';
+import { FC, FormEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowDown, ArrowLeft, ArrowUp } from 'lucide-react';
 
@@ -14,17 +14,20 @@ import {
 import { Input } from '@/components/primitives/Input';
 import { Label } from '@/components/primitives/Label';
 import { Textarea } from '@/components/primitives/Textarea';
+import { useToast } from '@/hooks/useToast';
 
 const CreateToken: FC = () => {
   const { back } = useRouter();
   const [showOthers, setShowOthers] = useState(false);
+  const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
 
     try {
-      const response = await fetch('http://localhost:4000/create-coin', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/create-coin`, {
         method: 'POST',
         body: formData,
       });
@@ -34,9 +37,13 @@ const CreateToken: FC = () => {
       }
   
       const result = await response.json();
-      console.log('Coin created successfully', result);
+      const { message } = result || {};
+
+      toast({ description: message || 'Coin created successfully' });
+
+      formRef.current?.reset();
     } catch (error) {
-      console.error('Error submitting form', error);
+      toast({ description: 'Error submitting form' });
     }
   };
 
@@ -54,6 +61,7 @@ const CreateToken: FC = () => {
           <form
             className="flex flex-col gap-4"
             autoComplete="off"
+            ref={formRef}
             onSubmit={handleSubmit}
           >
             <div className="grid w-full gap-2">

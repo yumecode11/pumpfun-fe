@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import Providers from './providers';
 import TopNav from '@/components/common/TopNav';
 import Footer from '@/components/common/Footer';
+import { Toaster } from '@/components/common/Toaster';
 
 import '@solana/wallet-adapter-react-ui/styles.css';
 import 'nprogress/nprogress.css'
@@ -23,6 +24,7 @@ export default function RootLayout({
           <TopNav />
           {children}
           <Footer />
+          <Toaster />
         </Providers>
       </body>
     </html>
