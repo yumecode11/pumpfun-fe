@@ -14,7 +14,6 @@ type SessionOption = {
 
 type SignInOptions = {
   wallet: string
-  referral?: string
   redirect?: boolean
   callbackUrl?: string
 }
@@ -45,7 +44,6 @@ const useSession = (options?: SessionOption) => {
       },
       body: JSON.stringify({
         wallet: signInOptions.wallet,
-        ...(signInOptions.referral ? { referral: signInOptions.referral } : {})
       })
     })
       .then(res => {
