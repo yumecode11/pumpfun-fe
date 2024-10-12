@@ -31,4 +31,4 @@ class SigninMessage {
   }
 }
 
-export default SigninMessage
+export default SigninMessage;
