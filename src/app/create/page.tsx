@@ -1,18 +1,51 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, FormEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowDown, ArrowLeft, ArrowUp } from 'lucide-react';
 
-import {Button} from '@/components/primitives/Button';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/primitives/Card';
-import {Input} from '@/components/primitives/Input';
-import {Label} from '@/components/primitives/Label';
-import {Textarea} from '@/components/primitives/Textarea';
+import { Button } from '@/components/primitives/Button';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/primitives/Card';
+import { Input } from '@/components/primitives/Input';
+import { Label } from '@/components/primitives/Label';
+import { Textarea } from '@/components/primitives/Textarea';
+import { useToast } from '@/hooks/useToast';
 
 const CreateToken: FC = () => {
   const { back } = useRouter();
   const [showOthers, setShowOthers] = useState(false);
+  const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/create-coin`, {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to create coin');
+      }
+  
+      const result = await response.json();
+      const { message } = result || {};
+
+      toast({ description: message || 'Coin created successfully' });
+
+      formRef.current?.reset();
+    } catch (error) {
+      toast({ description: 'Error submitting form' });
+    }
+  };
 
   return (
     <main className="max-w-xl mx-auto px-4 mb-12">
@@ -25,7 +58,12 @@ const CreateToken: FC = () => {
           <CardTitle>Create New Token</CardTitle>
         </CardHeader>
         <CardContent>
-          <form className="flex flex-col gap-4">
+          <form
+            className="flex flex-col gap-4"
+            autoComplete="off"
+            ref={formRef}
+            onSubmit={handleSubmit}
+          >
             <div className="grid w-full gap-2">
               <Label htmlFor="name">Name</Label>
               <Input type="text" id="name" name="name" required />
@@ -56,24 +94,28 @@ const CreateToken: FC = () => {
               )}
             </Button>
 
-            <div className="grid w-full gap-2">
-              <Label htmlFor="twitter">Twitter link</Label>
-              <Input type="text" id="twitter" name="twitter" />
-            </div>
+              {showOthers && (
+                <>
+                  <div className="grid w-full gap-2">
+                    <Label htmlFor="twitter">Twitter link</Label>
+                    <Input type="text" id="twitter" name="twitter" />
+                  </div>
 
-            <div className="grid w-full gap-2">
-              <Label htmlFor="telegram">Telegram link</Label>
-              <Input type="text" id="telegram" name="telegram" />
-            </div>
+                  <div className="grid w-full gap-2">
+                    <Label htmlFor="telegram">Telegram link</Label>
+                    <Input type="text" id="telegram" name="telegram" />
+                  </div>
 
-            <div className="grid w-full gap-2">
-              <Label htmlFor="website">Website link</Label>
-              <Input type="text" id="website" name="website" />
-            </div>
+                  <div className="grid w-full gap-2">
+                    <Label htmlFor="website">Website link</Label>
+                    <Input type="text" id="website" name="website" />
+                  </div>
 
-            <p className="text-foreground text-xs">
-              Note: Coin data cannot be changed after creation
-            </p>
+                  <p className="text-foreground text-xs">
+                    Note: Coin data cannot be changed after creation
+                  </p>
+                </>
+              )}
 
             <Button type="submit" className="w-full">
               Create Coin
