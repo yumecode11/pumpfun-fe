@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import Image from "next/image";
 import {LogOut, Wallet, User} from "lucide-react";
 import {useWalletModal} from "@solana/wallet-adapter-react-ui";
@@ -10,16 +10,49 @@ import useSession from "@/hooks/useSession";
 import {useWallet} from "@solana/wallet-adapter-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./DropdownMenu";
 import { useRouter } from "next/navigation";
+import SigninMessage from "@/lib/SignMessage";
+import bs58 from "bs58";
 
 const TopNav: FC = () => {
   const { push, replace } = useRouter();
-  const { data: session } = useSession();
+  const { data: session, signIn, signOut } = useSession();
+  const { username } = session || {};
   const { setVisible } = useWalletModal();
-  const { connected, connecting, publicKey, signMessage, disconnect } = useWallet();
+  const { connected, publicKey, signMessage, disconnect } = useWallet();
   const handleDisconnect = async() => {
     await disconnect();
+    await signOut();
     replace('/');
   }
+  
+  // Handle callback from wallet connection and then do login
+  useEffect(() => {
+    if (connected && publicKey && signMessage) {
+      (async () => {
+        const message = new SigninMessage({
+          domain: window.location.host,
+          publicKey: publicKey.toBase58(),
+          statement: `Sign this message to authenticate`,
+        });
+
+        const data = new TextEncoder().encode(message.prepare());
+        const signature = await signMessage(data).catch(() => null);
+
+        if (!signature) {
+          return;
+        }
+
+        const serializedSignature = bs58.encode(signature);
+        const isValid = await message.validate(serializedSignature);
+
+        if (isValid) {
+          signIn({
+            wallet: publicKey.toString(),
+          });
+        }
+      })();
+    }
+  }, [connected, publicKey, signMessage]);
 
   return (
     <nav className="flex flex-wrap justify-between w-full p-2 sm:p-4 items-center h-fit">
@@ -74,7 +107,7 @@ const TopNav: FC = () => {
             <DropdownMenuTrigger asChild>
               <Button>
                 <User className="mr-2 h-4 w-4" />
-                @L0r3m
+                {`@${username}`}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
