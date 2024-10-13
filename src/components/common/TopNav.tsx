@@ -15,7 +15,7 @@ import bs58 from "bs58";
 
 const TopNav: FC = () => {
   const { push, replace } = useRouter();
-  const { data: session, signIn, signOut } = useSession();
+  const { data: session, signIn, signOut, status } = useSession();
   const { username } = session || {};
   const { setVisible } = useWalletModal();
   const { connected, publicKey, signMessage, disconnect } = useWallet();
@@ -27,7 +27,7 @@ const TopNav: FC = () => {
   
   // Handle callback from wallet connection and then do login
   useEffect(() => {
-    if (connected && publicKey && signMessage) {
+    if (connected && publicKey && signMessage && !session && status === 'loaded') {
       (async () => {
         const message = new SigninMessage({
           domain: window.location.host,
@@ -52,7 +52,7 @@ const TopNav: FC = () => {
         }
       })();
     }
-  }, [connected, publicKey, signMessage]);
+  }, [connected, publicKey, signMessage, session, status]);
 
   return (
     <nav className="flex flex-wrap justify-between w-full p-2 sm:p-4 items-center h-fit">
@@ -102,7 +102,7 @@ const TopNav: FC = () => {
         </div>
       </div>
       <div className="md:flex md:gap-4 grid gap-1">
-        {connected ? (
+        {session ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button>
