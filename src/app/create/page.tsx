@@ -28,12 +28,12 @@ const CreateToken: FC = () => {
 
     if (file) {
       if (!file.type.startsWith("image/")) {
-        alert("Please select a valid image file.");
+        toast({ description: 'Please select a valid image file.' });
         return;
       }
 
       if (file.size > 3 * 1024 * 1024) {
-        alert("File size should not exceed 3MB.");
+        toast({ description: 'File size should not exceed 3MB.' });
         return;
       }
 
@@ -62,6 +62,7 @@ const CreateToken: FC = () => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/create-coin`, {
         method: 'POST',
         body: formData,
+        credentials: 'include',
       });
   
       if (!response.ok) {
