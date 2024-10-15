@@ -1,8 +1,8 @@
 'use client';
 
-import { FC, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowDown, ArrowLeft, ArrowUp } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowUp, X } from 'lucide-react';
 
 import { Button } from '@/components/primitives/Button';
 import {
@@ -20,7 +20,39 @@ const CreateToken: FC = () => {
   const { back } = useRouter();
   const [showOthers, setShowOthers] = useState(false);
   const { toast } = useToast();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        alert("Please select a valid image file.");
+        return;
+      }
+
+      if (file.size > 3 * 1024 * 1024) {
+        alert("File size should not exceed 3MB.");
+        return;
+      }
+
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImagePreview(null);
+    
+    if (formRef.current) {
+      const imageInput = formRef.current.querySelector<HTMLInputElement>('#image');
+
+      if (imageInput) {
+        imageInput.value = '';
+      }
+    }
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -33,7 +65,7 @@ const CreateToken: FC = () => {
       });
   
       if (!response.ok) {
-        throw new Error('Failed to create coin');
+        throw new Error(response?.statusText || 'Something went wrong');
       }
   
       const result = await response.json();
@@ -43,7 +75,7 @@ const CreateToken: FC = () => {
 
       formRef.current?.reset();
     } catch (error) {
-      toast({ description: 'Error submitting form' });
+      toast({ description: error instanceof Error ? error.message : 'Something went wrong' });
     }
   };
 
@@ -78,7 +110,26 @@ const CreateToken: FC = () => {
             </div>
             <div className="grid w-full gap-2">
               <Label htmlFor="image">Image</Label>
-              <Input type="file" id="image" name="image" required />
+              {imagePreview && (
+                <div className="relative bg-input w-full border border-border border-dashed rounded p-3">
+                  <img
+                    src={imagePreview}
+                    alt="Logo"
+                    className="w-auto max-w-full h-auto object-contain rounded"
+                  />
+                  <button type="button" className="absolute top-4 right-4 bg-foreground p-1 text-background border border-background rounded-full" onClick={handleRemoveImage}>
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              )}
+              <Input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+                required
+                onChange={handleImageChange} 
+              />
             </div>
 
             <Button
