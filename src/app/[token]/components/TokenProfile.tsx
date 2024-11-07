@@ -1,30 +1,37 @@
 import { FC } from "react";
 
 import Image from "next/image";
-import {Progress} from "@/components/primitives/Progress";
+import { Progress } from "@/components/primitives/Progress";
+import { CoinType } from "@/types/coin.type";
 
-const TokenProfile: FC = () => {
+type TokenProfileProps = {
+  data: CoinType;
+};
+
+const TokenProfile: FC<TokenProfileProps> = ({ data }) => {
+  const DUMMY_BONDING_CURVE = 88;
+  const { description, image, name } = data;
+
   return (
     <div className="flex flex-col gap-4">
       <p className="relative text-sm text-foreground/80">
         <Image
-          alt="Lorem Ipsum Dolor Sit Amet"
+          alt={name}
           loading="lazy"
           width="128"
           height="128"
           decoding="async"
           className="mr-4 float-left rounded"
-          src="https://picsum.photos/128/128"
+          src={image}
         />
-        <strong className="text-foreground">Lorem Ipsum Dolor Sit Amet</strong>
+        <strong className="text-foreground">{name}</strong>
         <br />
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        {description}
       </p>
 
       <div className="mt-4">
-        <p className="text-sm mb-1">Bonding curve: 88%</p>
-        <Progress value={88} className="[&>*]:bg-chart-1" />
+        <p className="text-sm mb-1">Bonding curve: {DUMMY_BONDING_CURVE}%</p>
+        <Progress value={DUMMY_BONDING_CURVE} className="[&>*]:bg-chart-1" />
         <p className="text-xs mt-4 text-foreground/80">
           when the market cap reaches $65,522 all the liquidity from the bonding
           curve will be deposited into Raydium and burned. progression increases

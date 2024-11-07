@@ -1,3 +1,4 @@
+export { default as BackBtn } from "./BackBtn";
 export { default as BuyForm } from "./BuyForm";
 export { default as HolderDistribution } from "./HolderDistribution";
 export { default as SellForm } from "./SellForm";

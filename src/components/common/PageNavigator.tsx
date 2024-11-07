@@ -8,8 +8,19 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/common/Pagination";
+import { PaginationType } from "@/types/common.type";
+import { DEFAULT_PAGINATION } from "@/app/constants";
 
-const PagesNavigator: FC = () => {
+type PagesNavigatorProps = {
+  pagination: PaginationType;
+};
+
+const PagesNavigator: FC<PagesNavigatorProps> = (props) => {
+  const { pagination } = props;
+  const { currentPage, pageSize, totalItems, totalPages } = pagination;
+
+  if (totalPages < 2) return null;
+
   return (
     <Pagination>
       <PaginationContent>
