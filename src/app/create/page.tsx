@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { ArrowDown, ArrowLeft, ArrowUp, X } from 'lucide-react';
+import { ChangeEvent, FC, FormEvent, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowDown, ArrowLeft, ArrowUp, X } from "lucide-react";
 
-import { Button } from '@/components/primitives/Button';
+import { Button } from "@/components/primitives/Button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/primitives/Card';
-import { Input } from '@/components/primitives/Input';
-import { Label } from '@/components/primitives/Label';
-import { Textarea } from '@/components/primitives/Textarea';
-import { useToast } from '@/hooks/useToast';
+} from "@/components/primitives/Card";
+import { Input } from "@/components/primitives/Input";
+import { Label } from "@/components/primitives/Label";
+import { Textarea } from "@/components/primitives/Textarea";
+import { useToast } from "@/hooks/useToast";
 
 const CreateToken: FC = () => {
   const { back } = useRouter();
@@ -28,12 +28,12 @@ const CreateToken: FC = () => {
 
     if (file) {
       if (!file.type.startsWith("image/")) {
-        toast({ description: 'Please select a valid image file.' });
+        toast({ description: "Please select a valid image file." });
         return;
       }
 
       if (file.size > 3 * 1024 * 1024) {
-        toast({ description: 'File size should not exceed 3MB.' });
+        toast({ description: "File size should not exceed 3MB." });
         return;
       }
 
@@ -43,12 +43,13 @@ const CreateToken: FC = () => {
 
   const handleRemoveImage = () => {
     setImagePreview(null);
-    
+
     if (formRef.current) {
-      const imageInput = formRef.current.querySelector<HTMLInputElement>('#image');
+      const imageInput =
+        formRef.current.querySelector<HTMLInputElement>("#image");
 
       if (imageInput) {
-        imageInput.value = '';
+        imageInput.value = "";
       }
     }
   };
@@ -59,24 +60,31 @@ const CreateToken: FC = () => {
     const formData = new FormData(e.target as HTMLFormElement);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/create-coin`, {
-        method: 'POST',
-        body: formData,
-        credentials: 'include',
-      });
-  
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/create-coin`,
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        }
+      );
+
       if (!response.ok) {
-        throw new Error(response?.statusText || 'Something went wrong');
+        throw new Error(response?.statusText || "Something went wrong");
       }
-  
+
       const result = await response.json();
       const { message } = result || {};
 
-      toast({ description: message || 'Coin created successfully' });
+      toast({ description: message || "Coin created successfully" });
 
       formRef.current?.reset();
+      setImagePreview(null);
     } catch (error) {
-      toast({ description: error instanceof Error ? error.message : 'Something went wrong' });
+      toast({
+        description:
+          error instanceof Error ? error.message : "Something went wrong",
+      });
     }
   };
 
@@ -118,7 +126,11 @@ const CreateToken: FC = () => {
                     alt="Logo"
                     className="w-auto max-w-full h-auto object-contain rounded"
                   />
-                  <button type="button" className="absolute top-4 right-4 bg-foreground p-1 text-background border border-background rounded-full" onClick={handleRemoveImage}>
+                  <button
+                    type="button"
+                    className="absolute top-4 right-4 bg-foreground p-1 text-background border border-background rounded-full"
+                    onClick={handleRemoveImage}
+                  >
                     <X className="h-4 w-4" />
                   </button>
                 </div>
@@ -129,7 +141,7 @@ const CreateToken: FC = () => {
                 name="image"
                 accept="image/*"
                 required
-                onChange={handleImageChange} 
+                onChange={handleImageChange}
               />
             </div>
 
@@ -146,28 +158,28 @@ const CreateToken: FC = () => {
               )}
             </Button>
 
-              {showOthers && (
-                <>
-                  <div className="grid w-full gap-2">
-                    <Label htmlFor="twitter">Twitter link</Label>
-                    <Input type="text" id="twitter" name="twitter" />
-                  </div>
+            {showOthers && (
+              <>
+                <div className="grid w-full gap-2">
+                  <Label htmlFor="twitter">Twitter link</Label>
+                  <Input type="text" id="twitter" name="twitter" />
+                </div>
 
-                  <div className="grid w-full gap-2">
-                    <Label htmlFor="telegram">Telegram link</Label>
-                    <Input type="text" id="telegram" name="telegram" />
-                  </div>
+                <div className="grid w-full gap-2">
+                  <Label htmlFor="telegram">Telegram link</Label>
+                  <Input type="text" id="telegram" name="telegram" />
+                </div>
 
-                  <div className="grid w-full gap-2">
-                    <Label htmlFor="website">Website link</Label>
-                    <Input type="text" id="website" name="website" />
-                  </div>
+                <div className="grid w-full gap-2">
+                  <Label htmlFor="website">Website link</Label>
+                  <Input type="text" id="website" name="website" />
+                </div>
 
-                  <p className="text-foreground text-xs">
-                    Note: Coin data cannot be changed after creation
-                  </p>
-                </>
-              )}
+                <p className="text-foreground text-xs">
+                  Note: Coin data cannot be changed after creation
+                </p>
+              </>
+            )}
 
             <Button type="submit" className="w-full">
               Create Coin

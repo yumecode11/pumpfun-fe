@@ -5,7 +5,14 @@ import BuyForm from "./BuyForm";
 import SellForm from "./SellForm";
 import clsx from "clsx";
 
-const TransactionForm: FC = () => {
+import { CoinType } from "@/types/coin.type";
+
+type TransactionFormProps = {
+  data: CoinType;
+};
+
+const TransactionForm: FC<TransactionFormProps> = ({ data }) => {
+  const { _id } = data;
   const [isBuy, setIsBuy] = useState(true);
 
   return (
@@ -33,7 +40,7 @@ const TransactionForm: FC = () => {
         </button>
       </div>
       <hr className="my-4" />
-      {isBuy ? <BuyForm /> : <SellForm />}
+      {isBuy ? <BuyForm data={data} /> : <SellForm data={data} />}
     </div>
   );
 };

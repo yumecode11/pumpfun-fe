@@ -1,17 +1,27 @@
-'use client';
+"use client";
 
-import { FC, useState } from 'react';
+import { FC, useEffect } from "react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/primitives/Tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/primitives/Tabs";
 import Coin from "@/app/components/Coin";
 import PageNavigator from "@/components/common/PageNavigator";
 import Filter from "@/app/components/Filter";
 
-import { DEFAULT_TAB, DUMMY_ITEMS, TAB_ITEMS } from "../constants";
-import UsersToFollow from './UsersToFollow';
+import { DEFAULT_TAB, TAB_ITEMS } from "../constants";
+import UsersToFollow from "./UsersToFollow";
+import useCoinList from "../hooks/useCoinList";
 
 const CoinList: FC = () => {
-  const [tab, setTab] = useState(DEFAULT_TAB);
+  const { fetchCoins, tab, setTab, coins, pagination } = useCoinList();
+
+  useEffect(() => {
+    fetchCoins();
+  }, []);
 
   return (
     <div className="container mx-auto">
@@ -21,7 +31,7 @@ const CoinList: FC = () => {
         value={tab}
         className="w-full"
       >
-        <div className='px-4'>
+        <div className="px-4">
           <div className="flex flex-col lg:flex-row gap-4">
             <div>
               <TabsList>
@@ -32,25 +42,24 @@ const CoinList: FC = () => {
                 ))}
               </TabsList>
             </div>
-            
 
             {tab === "terminal" && <Filter />}
           </div>
 
-          <hr className='mt-4' />
+          <hr className="mt-4" />
         </div>
 
-        <div className='px-2'>
+        <div className="px-2">
           {TAB_ITEMS.map((tab) => (
             <TabsContent key={tab.id} value={tab.id}>
-              {tab.id === 'following' && <UsersToFollow />}
+              {tab.id === "following" && <UsersToFollow />}
               <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {DUMMY_ITEMS.map((item) => (
-                  <Coin key={item.slug} {...item} />
+                {(coins || []).map((item) => (
+                  <Coin key={item._id} {...item} />
                 ))}
               </div>
               <div className="py-12">
-                <PageNavigator />
+                <PageNavigator pagination={pagination} />
               </div>
             </TabsContent>
           ))}

@@ -1,7 +1,19 @@
 import { FC } from "react";
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/primitives/Table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/primitives/Table";
+import { CoinTradeType } from "@/types/coin.type";
 
-const Trades: FC = () => {
+type TradesProps = {
+  data: CoinTradeType[];
+};
+
+const Trades: FC<TradesProps> = ({ data }) => {
   return (
     <div className="w-full">
       <Table className="bg-secondary rounded">
@@ -15,18 +27,36 @@ const Trades: FC = () => {
             <TableHead className="text-right">Transaction</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          {[...Array(32)].map((_, i) => (
-            <TableRow key={i}>
-              <TableCell>9GFf6z</TableCell>
-              <TableCell>BUY</TableCell>
-              <TableCell className="text-right">0.8192</TableCell>
-              <TableCell className="text-right">2.51m</TableCell>
-              <TableCell>2m ago</TableCell>
-              <TableCell className="text-right">4id83j</TableCell>
+        {(data || []).length > 0 ? (
+          <TableBody>
+            {(data || []).map((trade) => {
+              const { _id, wallet, amount_in, amount_out, tx_hash, timestamp } =
+                trade;
+              const isBuy = amount_in > 0;
+              const amount = isBuy ? amount_in : amount_out;
+              const amountSol = isBuy ? amount_in : amount_out;
+
+              return (
+                <TableRow key={_id}>
+                  <TableCell>{wallet}</TableCell>
+                  <TableCell>{isBuy ? "BUY" : "SELL"}</TableCell>
+                  <TableCell className="text-right">{amountSol}</TableCell>
+                  <TableCell className="text-right">{amount}</TableCell>
+                  <TableCell>{timestamp}</TableCell>
+                  <TableCell className="text-right">{tx_hash}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        ) : (
+          <TableBody>
+            <TableRow>
+              <TableCell colSpan={6} className="text-center">
+                No trades found
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
+          </TableBody>
+        )}
       </Table>
     </div>
   );

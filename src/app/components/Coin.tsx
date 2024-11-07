@@ -1,31 +1,18 @@
 import type { FC } from "react";
 
 import Image from "next/image";
-import { PersonIcon } from "@radix-ui/react-icons";
+import { CoinType } from "@/types/coin.type";
 
-type ListItemsProps = {
-  slug: string;
-  imgUrl: string;
-  name: string;
-  ticker: string;
-  userName: string;
-  created: string;
-  marketCap: number;
-  replies: number;
-  text: string;
-};
-
-const ListItems: FC<ListItemsProps> = (props) => {
+const CoinItem: FC<CoinType> = (props) => {
   const {
-    slug,
-    imgUrl,
+    _id: slug,
+    image,
     name,
     ticker,
-    userName,
-    created,
-    marketCap,
-    replies,
-    text,
+    created_by,
+    created_at,
+    market_cap,
+    description,
   } = props;
 
   return (
@@ -38,27 +25,27 @@ const ListItems: FC<ListItemsProps> = (props) => {
           height="128"
           decoding="async"
           className="w-24 sm:w-32 h-auto block rounded absolute left-2 top-2"
-          src={imgUrl}
+          src={image}
         />
         <div className="gap-1 grid h-fit">
           <div className="text-xs text-foreground flex flex-wrap items-center gap-1">
             <div className="flex items-center gap-1">
               <div>Created by</div>
               <button type="button" className="hover:underline text-chart-3">
-                {userName}
+                {created_by}
               </button>
             </div>
-            <span className="w-full md:w-auto">{created}</span>
+            <span className="w-full md:w-auto">{created_at}</span>
           </div>
           <div className="text-xs text-chart-1 flex gap-1">
-            {`market cap: ${marketCap}`}
+            {`market cap: ${market_cap}`}
           </div>
-          <p className="text-xs flex items-center gap-2 text-chart-2">{`replies: ${replies}`}</p>
+          <p className="text-xs flex items-center gap-2 text-chart-2">{`replies: 0`}</p>
           <p className="text-sm w-full text-foreground break-words font-bold">
             {name} (ticker: {ticker})
           </p>
           <p className="text-xs w-full text-foreground/80 break-words line-clamp-3">
-            {text}
+            {description}
           </p>
         </div>
       </div>
@@ -66,4 +53,4 @@ const ListItems: FC<ListItemsProps> = (props) => {
   );
 };
 
-export default ListItems;
+export default CoinItem;

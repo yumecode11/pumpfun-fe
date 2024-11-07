@@ -2,7 +2,13 @@ import { FC } from "react";
 
 import Thread from "./Thread";
 import Trades from "./Trades";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/primitives/Tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/primitives/Tabs";
+import { CoinReplyType, CoinTradeType } from "@/types/coin.type";
 
 const TAB_ITEMS = [
   {
@@ -15,7 +21,12 @@ const TAB_ITEMS = [
   },
 ];
 
-const TradeThread: FC = () => {
+type TradeThreadProps = {
+  trades: CoinTradeType[];
+  threads: CoinReplyType[];
+};
+
+const TradeThread: FC<TradeThreadProps> = ({ trades, threads }) => {
   return (
     <Tabs defaultValue={TAB_ITEMS[0].id} className="mt-4">
       <TabsList>
@@ -28,8 +39,8 @@ const TradeThread: FC = () => {
 
       {TAB_ITEMS.map((tab) => (
         <TabsContent key={tab.id} value={tab.id}>
-          {tab.id === "thread" && <Thread />}
-          {tab.id === "trades" && <Trades />}
+          {tab.id === "thread" && <Thread data={threads} />}
+          {tab.id === "trades" && <Trades data={trades} />}
         </TabsContent>
       ))}
     </Tabs>
