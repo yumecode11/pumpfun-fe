@@ -3,6 +3,9 @@
 import { ChangeEvent, FC, FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowDown, ArrowLeft, ArrowUp, X } from "lucide-react";
+import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import { Message, Transaction } from "@solana/web3.js";
+import base58 from "bs58";
 
 import { Button } from "@/components/primitives/Button";
 import {
@@ -22,6 +25,8 @@ const CreateToken: FC = () => {
   const { toast } = useToast();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const { signTransaction, sendTransaction } = useWallet();
+  const { connection } = useConnection();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -61,7 +66,7 @@ const CreateToken: FC = () => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/create-coin`,
+        `${process.env.NEXT_PUBLIC_API_URL}/launch/initiate`,
         {
           method: "POST",
           body: formData,
@@ -74,12 +79,62 @@ const CreateToken: FC = () => {
       }
 
       const result = await response.json();
-      const { message } = result || {};
+      const { message, data } = result || {};
 
-      toast({ description: message || "Coin created successfully" });
+      toast({ description: `Launch initiate: ${message}` });
 
       formRef.current?.reset();
       setImagePreview(null);
+
+      if (data && signTransaction) {
+        const { mint, unsignedMessage } = data;
+        const message = Message.from(base58.decode(unsignedMessage));
+        const tx = Transaction.populate(message);
+        const signedTx = await signTransaction(tx);
+        const txHash = await sendTransaction(signedTx, connection);
+        const loadingToast = toast({
+          description: `Waiting for transaction confirmation`,
+          duration: Infinity,
+        });
+        const latestBlockhash = await connection.getLatestBlockhash(
+          "finalized"
+        );
+        const confirmation = await connection.confirmTransaction(
+          {
+            signature: txHash,
+            ...latestBlockhash,
+          },
+          "finalized"
+        );
+        loadingToast.dismiss();
+        if (confirmation.value.err) {
+          throw new Error(confirmation.value.err as string);
+        }
+
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/launch/verify`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ mint, tx_hash: txHash }),
+              credentials: "include",
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+          }
+
+          const result = await response.json();
+
+          toast({ description: `Launch verify: ${message}` });
+        } catch (error) {
+          toast({ description: `Launch verify failed: ${error}` });
+        }
+      }
     } catch (error) {
       toast({
         description:

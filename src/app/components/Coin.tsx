@@ -25,7 +25,10 @@ const CoinItem: FC<CoinType> = (props) => {
           height="128"
           decoding="async"
           className="w-24 sm:w-32 h-auto block rounded absolute left-2 top-2"
-          src={image}
+          src={image.replace(
+            "ipfs://",
+            "https://chocolate-perfect-gazelle-617.mypinata.cloud/ipfs/"
+          )}
         />
         <div className="gap-1 grid h-fit">
           <div className="text-xs text-foreground flex flex-wrap items-center gap-1">
